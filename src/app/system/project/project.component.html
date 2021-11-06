@@ -1,0 +1,21 @@
+<div class="container">
+  <div class="p-2">
+    <div *ngIf="addMode && !editMode">
+      <app-edit-project (createProject)="addProject($event)"></app-edit-project>
+    </div>
+    <div *ngIf="!addMode && editMode">
+      <app-edit-project (updateProject)="editProject($event)">
+      </app-edit-project>
+    </div>
+    <div *ngIf="!addMode && !editMode">
+      <app-project-view [project]="project"
+                        (switchToEditMode)="editMode = true;"
+                        (updateProject)="editProject($event)"
+                        (addTask)="createTask($event)"
+                        (completeTask)="taskCompleted($event)"
+                        (taskArchived)="archiveTask($event)"
+                        (taskMenuToggle)="toggleTaskMenu($event)">
+      </app-project-view>
+    </div>
+  </div>
+</div>

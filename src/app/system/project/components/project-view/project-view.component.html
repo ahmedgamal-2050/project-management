@@ -1,0 +1,246 @@
+<div class="row justify-content-between mb-3">
+  <div class="col-auto">
+    <a routerLink="/" class="btn btn-outline-primary">
+      Back to Timeline
+    </a>
+  </div>
+  <div class="col-auto">
+    <button type="button" class="btn btn-primary"
+            (click)="switchMode()">
+      Edit Project
+    </button>
+  </div>
+</div>
+<!-- view mode -->
+<div>
+  <section class="row">
+    <!-- Title -->
+    <div class="col-lg-2 col-md-3 mb-3">
+      Title:
+    </div>
+    <div class="col-lg-10 col-md-9 mb-3">
+      <h5>
+        {{ project?.title | titlecase }}
+      </h5>
+    </div>
+    <!-- Description -->
+    <div class="col-lg-2 col-md-3 mb-3">
+      Description:
+    </div>
+    <div class="col-lg-10 col-md-9 mb-3">
+      <p>
+        {{ project?.description }}
+      </p>
+    </div>
+    <!-- Labels -->
+    <div class="col-lg-2 col-md-3 mb-3">
+      Labels:
+    </div>
+    <div class="col-lg-10 col-md-9 mb-3">
+      <div>
+        <button type="button" *ngFor="let badge of project?.badge"
+                class="badge py-2 me-2 bg-success"
+                title="Edit"
+                (click)="openLabelModal(badge)">
+          {{ badge | titlecase }}
+        </button>
+        <button type="button" class="badge badge-outline-primary"
+                (click)="openLabelModal()" title="Add Label">
+          <i class="fa fa-plus"></i>
+        </button>
+      </div>
+    </div>
+    <!-- Deadline -->
+    <div class="col-lg-2 col-md-3 mb-3">
+      Deadline:
+    </div>
+    <div class="col-lg-10 col-md-9 mb-3">
+      <p>
+        {{ project?.deadline }}
+      </p>
+    </div>
+    <!-- Priority -->
+    <div class="col-lg-2 col-md-3 mb-3">
+      Priority:
+    </div>
+    <div class="col-lg-10 col-md-9 mb-3">
+      <p>
+        {{ project?.priority | titlecase }}
+      </p>
+    </div>
+    <!-- Tasks -->
+    <div class="col-lg-2 col-md-3 mb-3">
+      Tasks:
+    </div>
+    <div class="col-lg-10 col-md-9 mb-3">
+      <ul class="list-style-none">
+        <li class="mb-2">
+          <button class="d-flex align-items-center rounded add-task"
+                  (click)="openTaskModal()">
+            <span class="btn">
+              <i class="fa fa-plus text-success"></i>
+            </span>
+            Add Task
+          </button>
+        </li>
+        <!-- Tasklist -->
+        <li class="row justify-content-between rounded border mb-2"
+             [class.alert-success]="task.complete"
+             [class.border-success]="task.complete"
+             *ngFor="let task of project?.task">
+          <!-- Left Menu Side -->
+          <div class="col-auto p-3">
+            <div class="d-flex align-items-center">
+              <button type="button" class="border rounded square"
+                   [class.bg-success]="task.complete"
+                   (click)="taskCompleted(task)"></button>
+              <div class="ms-3 taskName-overflow"
+                   [class.text-decoration-line-through]="task.complete"
+                   [class.text-success]="task.complete"
+                   [title]="task.name">
+                {{task.name}}
+              </div>
+              <div class="d-flex">
+                <div class="ms-3 border rounded-pill py-1-5 px-2 fs-8" *ngIf="task.reminder"
+                     [class.alert-primary]="!task.complete"
+                     [class.border-primary]="!task.complete"
+                     [class.alert-success]="task.complete"
+                     [class.border-success]="task.complete">
+                  <i class="far fa-clock"></i>
+                  <span class="ms-2">{{ task.reminder | date:'dd MMM' }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Right Menu Side -->
+          <div class="col-auto d-flex">
+            <!-- Boolean Results -->
+            <div class="col-auto row me-2 align-items-center"
+                 *ngIf="(task.complete || task.archive) && !task.showMenu">
+              <div class="col me-1 text-success" *ngIf="task.complete">
+                <i class="fas fa-trophy"></i>
+              </div>
+              <div class="col me-1 text-primary" *ngIf="task.archive">
+                <i class="fas fa-archive"></i>
+              </div>
+            </div>
+            <!-- More Actions -->
+            <div class="bg-dark col-auto row">
+              <div class="col-auto p-3 text-white" (click)="toggleTaskMenu(task)"
+                   title="More">
+                <i class="fa-solid fa-ellipsis-vertical"></i>
+              </div>
+              <!-- Actions Menu -->
+              <div class="col-auto" *ngIf="task.showMenu">
+                <div class="row">
+                  <button type="button" class="col p-3 px-4 text-white" title="Reminder">
+                    <i class="far fa-clock"></i>
+                  </button>
+                  <button type="button" class="col p-3 px-4 text-white" (click)="archiveTask(task)" title="Archive">
+                    <i class="fas fa-archive"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+        <!--<li class="mb-2" *ngFor="let task of project?.task">
+          <div class="d-flex p-2 border rounded">
+            <button type="button" class="btn border square me-3"
+                    [class.bg-green]="task.complete"></button>
+            <div [class.task-complete]="task.complete">{{task.name}}</div>
+          </div>
+        </li>-->
+      </ul>
+    </div>
+    <!-- Notes -->
+    <div class="col-lg-2 col-md-3 mb-3">
+      Notes:
+    </div>
+    <div class="col-lg-10 col-md-9 mb-3">
+      <p>
+        {{ project?.note }}
+      </p>
+    </div>
+  </section>
+</div>
+
+<!-- Task Modal -->
+<div class="modal fade" id="taskModal" tabindex="-1"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <form [formGroup]="taskForm" (submit)="submitTask(project.id)" novalidate>
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">{{ selectedTask ? 'Edit' : 'Create'}} Task</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-12 mb-3">
+              <label for="taskName" class="mb-1">Task Name <span class="text-danger">*</span></label>
+              <input type="text" id="taskName" class="form-control"
+                     placeholder="Task Name" formControlName="taskName"
+                     [ngClass]="taskName?.invalid && (taskName?.dirty || taskName?.touched) ? 'border-danger':''">
+              <div *ngIf="taskName?.invalid && (taskName?.dirty || taskName?.touched)" class="text-danger">
+                <div *ngIf="taskName.errors && taskName.errors.required">
+                  Task Name is required.
+                </div>
+                <div *ngIf="taskName.errors && taskName.errors.minlength">
+                  Task Name must be at least 3 characters.
+                </div>
+                <div *ngIf="taskName.errors && taskName.errors.maxLength">
+                  Task Name must be 50 characters maximum.
+                </div>
+                <div *ngIf="taskName.errors && taskName.errors.pattern">
+                  Task Name must start with a character.
+                </div>
+              </div>
+            </div>
+            <div class="col-12 mb-3">
+              <label for="reminder" class="mb-1">Reminder (Optional)</label>
+              <input type="date" id="reminder" class="form-control"
+                     placeholder="mm/dd/yyyy" formControlName="reminder">
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-success">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Labels Modal -->
+<div class="modal fade" id="labelModal" tabindex="-1"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add Project Label</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p class="mb-2 text-muted">You can add multiple labels</p>
+        <div class="d-flex mb-3">
+          <div class="col">
+            <input type="text" class="form-control" required [(ngModel)]="projectLabel"
+                   placeholder="Project Label" />
+          </div>
+          <div class="col-auto">
+            <div class="btn btn-primary" (click)="addlabel(projectLabel)">
+              <i class="fa fa-plus"></i>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer px-0">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" (click)="submitLabels(project.badge)">Submit</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

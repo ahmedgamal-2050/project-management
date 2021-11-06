@@ -1,0 +1,39 @@
+<div class="modal-header">
+  <h5 class="modal-title" id="exampleModalLabel">Timeline Form</h5>
+  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+</div>
+<div class="modal-body">
+  <form [formGroup]="timelineForm" (submit)="submitTimeline()">
+    <div class="mb-3">
+      <input type="text" class="form-control" required formControlName="title"
+              placeholder="Timeline Title" />
+      <div *ngIf="title?.invalid && (title?.dirty || title?.touched)" class="text-danger">
+        <div *ngIf="title.errors && title.errors.required">
+          Timeline Title is required.
+        </div>
+        <div *ngIf="title.errors && title.errors.minlength">
+          Timeline Title must be at least 3 characters.
+        </div>
+        <div *ngIf="title.errors && title.errors.maxLength">
+          Timeline Title must be 25 characters maximum.
+        </div>
+        <div *ngIf="title.errors && title.errors.pattern">
+          Timeline Title must start with a character.
+        </div>
+      </div>
+    </div>
+    <div class="mb-3">
+      <select class="form-control form-select" required formControlName="color">
+        <option value="" class="text-muted" hidden>Choose Timeline Main Color</option>
+        <option [value]="color" *ngFor="let color of colorList">
+          {{ color | titlecase }}
+        </option>
+      </select>
+    </div>
+    <div class="modal-footer px-0">
+      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+  </form>
+</div>
+

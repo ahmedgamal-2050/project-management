@@ -1,0 +1,196 @@
+/* Main Project Colors */
+$blackColor: #242423;
+$redColor: #ea3546;
+$blueColor: #3f51b5;
+$cyanColor: #43bccd;
+$yellowColor: #f9c80e;
+$orangeColor: #f86624;
+$greenColor: #198754;
+$lightGreenColor: #bfd200;
+$purpleColor: #7b2cbf;
+$turquoiseColor: #02c39a;
+$grayColor: #6c757d;
+
+.bg-turquoise {
+  background-color: $turquoiseColor;
+}
+
+.bg-purple {
+  background-color: $purpleColor;
+}
+
+.bg-black {
+  background-color: $blackColor !important;
+}
+
+.bg-red {
+  background-color: $redColor;
+}
+
+.bg-blue {
+  background-color: $blueColor;
+}
+
+.bg-cyan {
+  background-color: $cyanColor;
+}
+
+.bg-yellow {
+  background-color: $yellowColor;
+}
+
+.bg-orange {
+  background-color: $orangeColor;
+}
+
+.bg-green {
+  background-color: $greenColor;
+}
+
+.bg-light-green {
+  background-color: $lightGreenColor;
+}
+/* You can add global styles to this file, and also import other style files */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+p, h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+}
+
+button {
+  border: 0;
+  text-align: unset;
+  background-color: unset;
+  outline: 0;
+
+  &:focus {
+    box-shadow: unset !important;
+  }
+}
+
+body {
+  height: 100%;
+  width: 100%;
+}
+
+aside {
+  width: 4.5rem;
+}
+
+.content {
+  width: calc(100% - 4.5rem);
+  float: right;
+}
+
+.timeline-container {
+  overflow-x: auto;
+  overflow-y: hidden;
+  width: auto;
+  /* width */
+  &::-webkit-scrollbar {
+    height: 8px;
+  }
+  /* Track */
+  &::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+  /* Handle */
+  &::-webkit-scrollbar-thumb {
+    background: #bdbdbd;
+  }
+  /* Handle on hover */
+  &::-webkit-scrollbar-thumb:hover {
+    background: #9e9e9e;
+  }
+}
+
+.flex-wrap-nowrap {
+  flex-wrap: nowrap;
+}
+
+.timeline {
+  min-width: 300px;
+  width: 300px;
+  height: 100%;
+  margin-right: 0.5rem;
+}
+
+.timeline-head {
+  border-top-right-radius: 0.5rem;
+  border-top-left-radius: 0.5rem;
+}
+
+.timeline-body {
+  border-bottom-right-radius: 0.5rem;
+  border-bottom-left-radius: 0.5rem;
+  height: 400px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  /* width */
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+  /* Track */
+  &::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+  /* Handle */
+  &::-webkit-scrollbar-thumb {
+    background: #bdbdbd;
+  }
+  /* Handle on hover */
+  &::-webkit-scrollbar-thumb:hover {
+    background: #9e9e9e;
+  }
+}
+
+.add-project {
+  color: $blackColor;
+  opacity: 0.5;
+  border: 1px dashed $grayColor;
+  width: 100%;
+  padding: 0.25rem 0rem 0.25rem 0.5rem;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.project {
+  min-height: 6rem;
+  margin-bottom: 0.5rem;
+
+  &:last-child {
+    margin-bottom: 0rem;
+  }
+
+  &:hover {
+    background-color: #eeeeee !important;
+  }
+}
+
+.project-title {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 250px;
+  overflow: hidden;
+  padding: 0.25rem 0;
+}
+
+.list-style-none {
+  list-style: none;
+  padding: 0;
+}
+
+.square {
+  padding: 0.75rem 0.75rem;
+}
+
+.task-complete {
+  color: $greenColor;
+  text-decoration: line-through;
+}

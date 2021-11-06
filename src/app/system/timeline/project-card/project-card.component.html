@@ -1,0 +1,18 @@
+<button type="button" *ngFor="let project of projectList"
+        class="project w-100 p-2 border rounded bg-light"
+        (dblclick)="openProjectView(project)">
+  <div class="pb-1">
+    <div *ngFor="let badge of project.badge"
+         class="badge bg-success me-1">
+      {{ badge | titlecase }}
+    </div>
+  </div>
+  <h6 class="project-title pb-1">{{ project.title | titlecase }}</h6>
+  <div>
+    <div class="row justify-content-between text-muted">
+      <div class="col-auto">{{project.task.length}}/{{project.task.length}}</div>
+      <div class="col-auto">{{ project.deadline | date : 'dd MMM' }}</div>
+      <div class="col-auto">{{ project.priority | titlecase }}</div>
+    </div>
+  </div>
+</button>

@@ -1,0 +1,26 @@
+<div class="container">
+  <div class="text-center mb-3">
+    <button type="button"
+            class="btn btn-primary"
+            (click)="openTimelineModal()">
+      Add New Timeline
+    </button>
+  </div>
+  <div class="timeline-container p-2 rounded bg-light border">
+    <app-timeline-view (openTimelineModal)="openTimelineModal($event)"
+                       [timelineList]="timelineList"></app-timeline-view>
+  </div>
+</div>
+
+<!-- Timeline Modal -->
+<div class="modal fade" id="timelineModal" tabindex="-1"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <app-edit-timeline [selectedTimeline]="selectedTimeline"
+                         (updateTimeline)="editTimeline($event)"
+                         (createTimeline)="addTimeline($event)">
+      </app-edit-timeline>
+    </div>
+  </div>
+</div>

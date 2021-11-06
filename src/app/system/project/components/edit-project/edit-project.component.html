@@ -1,0 +1,75 @@
+<form [formGroup]="projectForm" (submit)="submitProject()">
+  <section class="row">
+    <!-- Title -->
+    <div class="col-lg-2 col-md-3 mb-3">
+      Title:
+    </div>
+    <div class="col-lg-10 col-md-9 mb-3">
+      <div>
+        <input type="text" class="form-control" formControlName="title"
+               placeholder="Project title"
+               [class.border-danger]="title?.invalid && (title?.dirty || title?.touched)" />
+        <div *ngIf="title?.invalid && (title?.dirty || title?.touched)" class="text-danger">
+          <div *ngIf="title.errors && title.errors.required">
+            Project title is required.
+          </div>
+          <div *ngIf="title.errors && title.errors.minlength">
+            Project title must be at least 3 characters.
+          </div>
+          <div *ngIf="title.errors && title.errors.maxLength">
+            Project title must be 25 characters maximum.
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Description -->
+    <div class="col-lg-2 col-md-3 mb-3">
+      Description:
+    </div>
+    <div class="col-lg-10 col-md-9 mb-3">
+      <div>
+        <textarea class="form-control" formControlName="description"
+                  placeholder="Project description"></textarea>
+      </div>
+    </div>
+    <!-- Deadline -->
+    <div class="col-lg-2 col-md-3 mb-3">
+      Deadline:
+    </div>
+    <div class="col-lg-10 col-md-9 mb-3">
+      <div>
+        <input type="date" class="form-control" formControlName="deadline"
+               placeholder="Project deadline" />
+      </div>
+    </div>
+    <!-- Priority -->
+    <div class="col-lg-2 col-md-3 mb-3">
+      Priority:
+    </div>
+    <div class="col-lg-10 col-md-9 mb-3">
+      <div>
+        <select class="form-control form-select" formControlName="priority">
+          <option value="" selected disabled>Select project priority</option>
+          <option value="very high">Very High</option>
+          <option value="high">High</option>
+          <option value="normal">Normal</option>
+          <option value="low">Low</option>
+          <option value="very low">Very Low</option>
+        </select>
+      </div>
+    </div>
+    <!-- Notes -->
+    <div class="col-lg-2 col-md-3 mb-3">
+      Notes:
+    </div>
+    <div class="col-lg-10 col-md-9 mb-3">
+      <div>
+        <textarea class="form-control" formControlName="note"
+                  placeholder="Notes"></textarea>
+      </div>
+    </div>
+    <div class="row justify-content-center px-0">
+      <button type="submit" class="btn btn-primary col-md-3">Submit</button>
+    </div>
+  </section>
+</form>
